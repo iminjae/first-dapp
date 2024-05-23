@@ -9,8 +9,10 @@ const App = () => {
   const [name, setName] = useState();
   const [symbol, setSymbol] = useState();
   const [balanceOf, setBalanceOf] = useState();
+  const [balanceOf2, setBalanceOf2] = useState();
   const [sendAddress, setSendAddress] = useState("");
   const [sendToken, setSendToken] = useState("");
+  const [sendAddress2, setSendAddress2] = useState("");
 
 
   const onClickMetamask = async () => {
@@ -50,7 +52,8 @@ const App = () => {
     }
   };
 
-  const onClickName = async () => { /////////
+
+  const onClickName = async () => { 
     try {
 
       const response = await contract.name();
@@ -61,7 +64,7 @@ const App = () => {
     }
   };
 
-  const onClickBalanceOf = async () => { /////////
+  const onClickBalanceOf = async () => { 
     try {
 
       const response = await contract.balanceOf(signer.address);
@@ -76,6 +79,8 @@ const App = () => {
     }
   };
 
+  
+
   const onClickSendToken = async () => {
     try {
       if(!sendAddress || !sendToken) return;
@@ -85,6 +90,19 @@ const App = () => {
       console.error(error);
     }
   };
+
+  const onClickBalanceOf2 = async () => { 
+    try {
+      if(!balanceOf2) return;
+      const response = await contract.balanceOf(sendAddress2);
+
+      setBalanceOf2(response);
+
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
 
   const getSymbol = async () => {
     try {
@@ -186,6 +204,22 @@ const App = () => {
               </div>
               <button className="button-style ml-4" onClick={onClickSendToken}>확인</button>
             </div>
+
+
+            <div className="flex w-full items-end">
+              <div className="flex flex-col gap-2 grow">
+              <div className="ml-1 text-lg font-bold">다른사람 조회</div>
+                <input className="input-style" type="text" placeholder="지갑 주소" value={sendAddress2} onChange={(e) => setSendAddress2(e.target.value)}/>
+                <div className="box-style grow">
+                {balanceOf2
+                  ? `보유 토큰: ${formatEther(balanceOf2)} ${symbol}`
+                  : "보유토큰확인 확인"}
+              </div>
+              </div>
+              <button className="button-style ml-4" onClick={onClickBalanceOf2}>확인</button>
+            </div>
+
+
         </div>
       )}
     </div>
