@@ -10,4 +10,8 @@
   .box-style {
     @apply bg-white rounded-xl text-xl font-semibold px-6 py-3;
   }
+
+  .input-style {
+    @apply bg-white rounded-xl text-xl font-semibold px-6 py-[14px] focus:outline-none border-2 focus:border-green-300;
+  }
 }
