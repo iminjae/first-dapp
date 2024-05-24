@@ -7,4 +7,8 @@ contract MintToken is ERC20 {
     constructor(uint256 _initEther, string memory _name, string memory _symbol) ERC20(_name, _symbol) {
         _mint(msg.sender, _initEther * 10 ** 18);
     }
+
+    function burnToken(uint256 _etherAmount) public {
+        _burn(msg.sender, _etherAmount * 10 ** 18);
+    }
 }
